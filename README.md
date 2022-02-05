@@ -1,6 +1,14 @@
 ## LET'S GET STARTED
 
 
+### How to RUN
+- cd frontend
+- yarn install
+- yarn run dev
+
+
+
+
 ### Contributers
 https://github.com/deb-pradhan  
 

@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --gradient: linear-gradient(
+    45deg,
+    #845ec2,
+    #d65db1,
+    #ff6f91,
+    #ff9671,
+    #fe9000,
+    #ffc75f,
+    #f9f871
+  );
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  min-height: 100vh; /* very important to set this if you use gradient background*/
+  background-image: var(--gradient);
+  background-size: 400%;
+  /* background-position: right; */
+  animation: bg-animation 25s infinite alternate;
+}
+
+/* adding background animations */
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+
+li,
+a,
+.primary-btn {
+  text-decoration: none;
+}
+
+header {
+  /* background-color: #ff6f91; */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
+  padding: 0px 20px;
+}
+.nav_links {
+  list-style: none;
+}
+
+.nav_links li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+  color: #ff0099;
+}
+
+.error {
+  color: #ff0099;
+  margin: 10px 2px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  margin-top: 120px;
+}
+
+.loader {
+  display: block;
+  border: 2px solid #f3f3f3; /* Light grey */
+  border-top: 2px solid #8e2ad6; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+.loader-center {
+  max-width: 20%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logo {
+  width: 8em;
+  height: 8em;
+  margin-right: auto;
+  cursor: pointer;
+  color: black;
+}
+
+.card {
+  border-radius: 20px;
+  background: rgba(85, 85, 85, 0.1);
+  padding: 20px 20px 30px 20px;
+  margin: 15px;
+  /* width: 250px; */
+  min-width: 90%;
+  height: 500px;
+  cursor: pointer;
+  border: 1px solid rgba(229, 231, 235, 1);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+}
+
+.cards {
+  /* border: 1px solid green; */
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.primary-btn {
+  border: 0;
+  padding: 0.5em 1.5em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  background-image: var(--gradient);
+  background-size: 300%;
+  background-position: left;
+  transition: background-position 2s;
+}
+
+.primary-btn:hover {
+  background-position: right;
+}
+
+.rainbow-card {
+  /* border-radius: 20px; */
+  width: 250px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: var(--gradient);
+  background-size: 300%;
+  background-position: left;
+  transition: background-position 2s;
+}
+
+.rainbow-card:hover {
+  background-position: right;
+}
+
+@media screen and (max-width: 800px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card{
+    max-width: 50%;
+    margin: 0 auto;
+    border-radius: 0px;
+  }
+  .nav_links {
+    display: none;
+  }
+  .primary-btn {
+    font-size: 0.5em 0.5em;
+    padding: 10px;
+  }
+}
