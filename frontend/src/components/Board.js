@@ -1,5 +1,6 @@
 import React from "react";
 import { WiDayLightning } from "react-icons/wi";
+import Game from "./Game";
 
 export default function Board() {
   const moodlyLogo = {
@@ -15,7 +16,8 @@ export default function Board() {
       <p>Game Begins</p>
       <div style={moodlyLogo}>
         {/* <WiDayLightning /> */}
-        <div className="loader loader-center"></div>
+        {/* <div className="loader loader-center"></div> */}
+        <Game />
       </div>
     </div>
     // </div>
