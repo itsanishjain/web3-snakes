@@ -1,24 +1,23 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
+
 contract Snake {
     
     uint ID = 0; // PRIMARY KEY
     struct Player {
         uint id;
         address playersAddress;
-        string name;
         uint score;
     }
 
     Player[] players;
 
-    function addPlayer(string memory _name) public   {
+    function addPlayer(uint _score) public   {
         Player memory player = Player({
             id:ID,
             playersAddress: msg.sender,
-            name: _name,
-            score:0
+            score:_score
         });
         players.push(player);
         ID++;
@@ -38,4 +37,5 @@ contract Snake {
     function getCurrentTime() public view returns(uint){
         return block.timestamp + 24 hours ; // seconds, minutes, hours, days, years
     }
+     
 }
