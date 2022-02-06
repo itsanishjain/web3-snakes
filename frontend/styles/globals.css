@@ -185,3 +185,20 @@ footer {
     padding: 10px;
   }
 }
+
+
+.table-container{
+  min-height: auto;
+  display: flex;
+  justify-content: center;
+  /* align-items: space-between */
+}
+
+
+
+
+
+td{
+  text-transform: uppercase;
+  padding: 20px;
+}

@@ -4,7 +4,7 @@ import Image from "next/image";
 import logo from "../../public/snakelogo.png";
 import { useMoralis } from "react-moralis";
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NavigationBar() {
   const { authenticate, isAuthenticated, logout, account } = useMoralis();
@@ -18,17 +18,24 @@ export default function NavigationBar() {
   };
   return (
     <header>
-      <div className="logo">
-        <Image
-          alt="snake logo"
-          src={logo}
-          className="logo"
-          width={128}
-          height={128}
-        />
-      </div>
+      <Link href="/" passHref>
+        <div className="logo">
+          <Image
+            alt="snake logo"
+            src={logo}
+            className="logo"
+            width={128}
+            height={128}
+          />
+        </div>
+      </Link>
       <nav>
         <ul className="nav_links">
+          <li>
+            <Link href="/players" passHref>
+              <a className="">Players</a>
+            </Link>
+          </li>
           <li>
             <Link href="https://github.com/itsanishjain" passHref>
               <a className="">About</a>
