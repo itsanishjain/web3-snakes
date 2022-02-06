@@ -200,6 +200,7 @@ export default function Game() {
         collision(newHead, snake)
       ) {
         console.log("GAME END MF");
+        alert("Game OVER !! Want to continue??");
         setRestart(!restart);
 
         // some fuction to send our data to sc // check score is under top 3
@@ -233,6 +234,8 @@ export default function Game() {
 
     let game = setInterval(draw, 100);
   }, [restart]);
+
+  console.log(SCORE)
 
   // useEffect ends here //
 
