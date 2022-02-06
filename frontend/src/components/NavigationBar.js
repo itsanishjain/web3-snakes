@@ -16,6 +16,7 @@ export default function NavigationBar() {
     await authenticate();
     setAuthLoading(false);
   };
+
   return (
     <header>
       <Link href="/" passHref>

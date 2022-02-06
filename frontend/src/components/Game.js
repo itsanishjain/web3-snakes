@@ -61,7 +61,6 @@ export default function Game() {
   }, []);
 
   useEffect(() => {
-    console.log("FETCH DONE>>>>>>>>>>>>>>>");
 
     const cvs = document.getElementById("snake");
     const ctx = cvs.getContext("2d");
@@ -218,7 +217,6 @@ export default function Game() {
         } else {
           setIsGameEnd(true);
           START2 = 1;
-          console.log("NNNNNNNNNNNNNNNNNNNNNNNNNNNN");
         }
         clearInterval(game);
         dead.play();
@@ -262,8 +260,6 @@ export default function Game() {
     backgroundColor: "black",
   };
 
-  console.log("SCORE>>>>>", SCORE);
-  console.log("PLAYERS", allPlayers);
 
   return (
     <>
