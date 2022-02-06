@@ -11,9 +11,10 @@ export default function NavigationBar() {
 
   const [authLoading, setAuthLoading] = useState(false);
 
-  const walletLogin = () => {
+  const walletLogin = async () => {
     setAuthLoading(true);
-    authenticate();
+    await authenticate();
+    setAuthLoading(false);
   };
   return (
     <header>
