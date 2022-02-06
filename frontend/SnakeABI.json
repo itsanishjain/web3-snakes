@@ -2,9 +2,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "_score",
+				"type": "uint256"
 			}
 		],
 		"name": "addPlayer",
@@ -27,11 +27,6 @@
 						"internalType": "address",
 						"name": "playersAddress",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
 					},
 					{
 						"internalType": "uint256",

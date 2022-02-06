@@ -3,8 +3,9 @@ import { ethers } from "ethers";
 import { useEffect } from "react";
 import { useState } from "react";
 
+import Button from "../src/components/Button";
 import contractABI from "../SnakeABI.json";
-const contractAddress = "0xc91857022E0e8E39b4B87696423D1e0217BcD2f7";
+const contractAddress = "0xAbE04380524Ac99c0E4c15c336FdbA0CE1792717";
 
 export default function Players() {
   const [allPlayers, setAllPlayers] = useState();
@@ -36,13 +37,11 @@ export default function Players() {
       data.map((d, i) => {
         let o = {
           id: toInt(d.id),
-          name: d.name,
           playersAddress: d.playersAddress,
           score: toInt(d.score),
         };
         dataArr.push(o);
       });
-
       sortObject(dataArr);
       setAllPlayers(dataArr);
     } catch (error) {
@@ -67,19 +66,24 @@ export default function Players() {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
                 <th>Address</th>
                 <th>Score</th>
+                <th>YOU GOT NFT</th>
               </tr>
             </thead>
             <tbody>
               {allPlayers.map((player, index) => (
                 <tr key={index}>
-                  <td>{player.name}</td>
                   <td>{player.playersAddress}</td>
+                  <td>{player.score}</td>
                   <td>
-                    {parseInt(
-                      ethers.utils.formatUnits(player.score) * 10 ** 18
+                    {index < 3 ? (
+                      <Button
+                        action={() => console.log("MINTED")}
+                        text="MINT IN 24HRS"
+                      />
+                    ) : (
+                      "NO"
                     )}
                   </td>
                 </tr>

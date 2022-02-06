@@ -1,12 +1,68 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import path from "path";
+// import path from "path";
+// import Button from "./Button";
+
+import { ethers } from "ethers";
+
+import contractABI from "../../SnakeABI.json";
 import Button from "./Button";
+const contractAddress = "0xAbE04380524Ac99c0E4c15c336FdbA0CE1792717";
 
 export default function Game() {
+  let START2 = 0;
   const [restart, setRestart] = useState(false);
+  const [isGameEnd, setIsGameEnd] = useState(false);
+  const [SCORE, setSCORE] = useState(0); // current user score
+
+  const [allPlayers, setAllPlayers] = useState(); // everyone
+
+  const [sendLoading, setSendLoading] = useState(false);
+
+  const toInt = (n) => {
+    return parseInt(ethers.utils.formatUnits(n) * 10 ** 18);
+  };
+
+  const sortObject = (dataObj) => {
+    dataObj.sort(function (a, b) {
+      return b.score - a.score;
+    });
+  };
+
+  // Fetches the players
+  const fetchAllPlayer = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      provider
+    );
+    try {
+      let data = await contract.getAllPlayers();
+      let dataArr = [];
+      data.map((d, i) => {
+        let o = {
+          id: toInt(d.id),
+          playersAddress: d.playersAddress,
+          score: toInt(d.score),
+        };
+        dataArr.push(o);
+      });
+
+      sortObject(dataArr);
+      setAllPlayers(dataArr);
+    } catch (error) {
+      console.log("ERROR in fetching data...", error);
+    }
+  };
 
   useEffect(() => {
+    fetchAllPlayer();
+  }, []);
+
+  useEffect(() => {
+    console.log("FETCH DONE>>>>>>>>>>>>>>>");
+
     const cvs = document.getElementById("snake");
     const ctx = cvs.getContext("2d");
 
@@ -64,6 +120,7 @@ export default function Game() {
 
     function direction(event) {
       let key = event.keyCode;
+      setIsGameEnd(false);
       if (key == 37 && d != "RIGHT") {
         left.play();
         d = "LEFT";
@@ -115,6 +172,7 @@ export default function Game() {
       // if the snake eats the food
       if (snakeX == food.x && snakeY == food.y) {
         score++;
+        setSCORE(score);
         eat.play();
         food = {
           x: Math.floor(Math.random() * 17 + 1) * box,
@@ -144,6 +202,24 @@ export default function Game() {
       ) {
         console.log("GAME END MF");
         setRestart(!restart);
+
+        // some fuction to send our data to sc // check score is under top 3
+        // SCORE
+        if (allPlayers && allPlayers.length == 0 && START2) {
+          for (let i = 0; i < allPlayers.length && 3; i++) {
+            let s = allPlayers[i].score;
+            if (SCORE > s) {
+              setIsGameEnd(true);
+            } else {
+              console.log("YOUR SCORE IS LESS ");
+              // setIsGameEnd(true);
+            }
+          }
+        } else {
+          setIsGameEnd(true);
+          START2 = 1;
+          console.log("NNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+        }
         clearInterval(game);
         dead.play();
       }
@@ -159,11 +235,36 @@ export default function Game() {
 
     let game = setInterval(draw, 100);
   }, [restart]);
+
+  // useEffect ends here //
+
+  // Add data to SC
+  const addPlayer = async () => {
+    setSendLoading(true);
+    console.log("adding player");
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // signer is used for setting data to SCs
+    const signer = provider.getSigner();
+    const signerAddress = await signer.getAddress();
+
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    const transaction = await contract.addPlayer(SCORE);
+    await transaction.wait();
+    setSendLoading(false);
+    setIsGameEnd(false);
+    console.log("ADD PLAYER COOL");
+  };
+
   const canvasStyle = {
     display: "block",
     margin: "0 auto",
     backgroundColor: "black",
   };
+
+  console.log("SCORE>>>>>", SCORE);
+  console.log("PLAYERS", allPlayers);
+
   return (
     <>
       <div>
@@ -174,17 +275,20 @@ export default function Game() {
           height="608"
         ></canvas>
       </div>
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2rem",
-        }}
-      >
-        <Button />
-      </div> */}
 
-      {/* <button onClick={}></button> */}
+      {isGameEnd ? (
+        !sendLoading ? (
+          <div style={{ marginTop: "30px" }} className="loader-center">
+            <Button text="SEND SCORE" action={() => addPlayer()} />
+          </div>
+        ) : (
+          <>
+            <div style={{ marginTop: "30px" }} className="loader-center">
+              <div className="loader"></div>
+            </div>
+          </>
+        )
+      ) : null}
     </>
   );
 }
