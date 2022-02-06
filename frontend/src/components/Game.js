@@ -174,7 +174,7 @@ export default function Game() {
           height="608"
         ></canvas>
       </div>
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
@@ -182,7 +182,7 @@ export default function Game() {
         }}
       >
         <Button />
-      </div>
+      </div> */}
 
       {/* <button onClick={}></button> */}
     </>
