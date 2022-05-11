@@ -27,7 +27,7 @@ export default function Players() {
   }, [activate]);
 
   useEffect(() => {
-    if (account) {
+    if(account) {
       fetchAllPlayer();
     }
   }, [account]);
