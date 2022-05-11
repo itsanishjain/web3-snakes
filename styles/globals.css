@@ -14,12 +14,26 @@
 }
 
 body {
-  background-image: url(https://uploads-ssl.webflow.com/5837424ae11409586f837994/61195e21f792d7065d2f56ad_noise.png);
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
   font-size: 1.2rem;
   letter-spacing: 1px;
+  min-height: 100vh; /* very important to set this if you use gradient background*/
+  background-image: var(--gradient);
+  background-size: 400%;
+  /* background-position: right; */
+  animation: bg-animation 25s infinite alternate;
+}
+
+/* adding background animations */
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
 }
 
 li,
@@ -29,7 +43,7 @@ a,
 }
 
 header {
-  background-color: lightblue;
+  /* background-color: #ff6f91; */
   display: flex;
   align-items: center;
   /* justify-content: space-between; */
@@ -63,10 +77,10 @@ header {
 footer {
   text-align: center;
   margin-top: 120px;
-  color: #aaa;
 }
 
 .loader {
+  display: block;
   border: 2px solid #f3f3f3; /* Light grey */
   border-top: 2px solid #8e2ad6; /* Blue */
   border-radius: 50%;
@@ -92,8 +106,8 @@ footer {
 }
 
 .logo {
-  width: 6em;
-  height: 6em;
+  width: 8em;
+  height: 8em;
   margin-right: auto;
   cursor: pointer;
   color: black;
@@ -104,8 +118,9 @@ footer {
   background: rgba(85, 85, 85, 0.1);
   padding: 20px 20px 30px 20px;
   margin: 15px;
-  width: 250px;
-  height: 200px;
+  /* width: 250px; */
+  min-width: 90%;
+  height: 500px;
   cursor: pointer;
   border: 1px solid rgba(229, 231, 235, 1);
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
@@ -157,6 +172,11 @@ footer {
     flex-direction: column;
     align-items: center;
   }
+  .card{
+    max-width: 50%;
+    margin: 0 auto;
+    border-radius: 0px;
+  }
   .nav_links {
     display: none;
   }
@@ -164,4 +184,21 @@ footer {
     font-size: 0.5em 0.5em;
     padding: 10px;
   }
+}
+
+
+.table-container{
+  min-height: auto;
+  display: flex;
+  justify-content: center;
+  /* align-items: space-between */
+}
+
+
+
+
+
+td{
+  text-transform: uppercase;
+  padding: 20px;
 }
