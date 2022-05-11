@@ -1,8 +1,14 @@
-## installing packages
+## LET'S GET STARTED
 
-yarn install
 
-## start an app
+### How to RUN
+- cd frontend
+- yarn install
+- yarn run dev
 
-yarn run dev
+### Contributers
 
+https://github.com/itsanishjain
+
+
+> I am open source BRO!

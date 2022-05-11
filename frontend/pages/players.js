@@ -3,22 +3,37 @@ import { ethers } from "ethers";
 import { useEffect } from "react";
 import { useState } from "react";
 
-import { useMoralis } from "react-moralis";
+// import { useMoralis } from "react-moralis";
+
+import { useWeb3React } from "@web3-react/core";
+import { connectors } from "../src/connectors";
 
 import Button from "../src/components/Button";
 import contractABI from "../SnakeABI.json";
 const contractAddress = "0xAbE04380524Ac99c0E4c15c336FdbA0CE1792717";
 
 export default function Players() {
-  const [allPlayers, setAllPlayers] = useState();
-  const [isMinted,setIsMisted] = useState(false)
-  const { account } = useMoralis();
+  const { library, chainId, account, activate, deactivate, active } = useWeb3React();
 
-  console.log(useMoralis());
+  const [allPlayers, setAllPlayers] = useState();
+  const [isMinted, setIsMisted] = useState(false)
+  // const { account } = useMoralis();
+
+  // console.log(useMoralis());
 
   useEffect(() => {
-    fetchAllPlayer();
-  }, []);
+    const provider = window.localStorage.getItem("provider");
+    if (provider) activate(connectors[provider]);
+  }, [activate]);
+
+  useEffect(() => {
+    if(account) {
+      fetchAllPlayer();
+    }
+  }, [account]);
+
+
+
 
   const mintNFT = (_address) => {
     console.log("MINTED");
@@ -50,12 +65,20 @@ export default function Players() {
   };
 
   const fetchAllPlayer = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const contract = new ethers.Contract(
-      contractAddress,
-      contractABI,
-      provider
-    );
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    console.log({ library })
+
+
+    const contract = new ethers.Contract(contractAddress, contractABI, library);
+    // const response = await contract.name();
+
+    // const contract = new ethers.Contract(
+    //   contractAddress,
+    //   contractABI,
+    //   provider
+    // );
+
     try {
       let data = await contract.getAllPlayers();
       let dataArr = [];
@@ -108,7 +131,7 @@ export default function Players() {
                           action={() => mintNFT(player.playersAddress)}
                           text="MINT"
                         />
-                        <a style={{fontSize:"1rem",display:"block",color:"white"}}
+                        <a style={{ fontSize: "1rem", display: "block", color: "white" }}
                           href={`https://opensea.io/${player.playersAddress}?tab=private`}
                         >Here is your minted NFT</a>
                       </>

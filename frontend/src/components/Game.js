@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 
 import contractABI from "../../SnakeABI.json";
 import Button from "./Button";
+import { toast } from "react-toastify";
 const contractAddress = "0xAbE04380524Ac99c0E4c15c336FdbA0CE1792717";
 
 export default function Game() {

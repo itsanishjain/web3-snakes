@@ -1,29 +1,26 @@
 import Layout from "../src/components/Layout";
 import "../styles/globals.css";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-import { MoralisProvider } from "react-moralis";
+
+import { ethers } from 'ethers';
+import { Web3ReactProvider } from '@web3-react/core';
+
+
+const getLibrary = (provider) => {
+  return new ethers.providers.Web3Provider(provider);
+}
+
 
 function MyApp({ Component, pageProps }) {
   return (
-    <MoralisProvider
-      appId="Ln95OTXfWjIYSCFyPd9hXlzJsKUP6H5GnhTBiCHa"
-      serverUrl="https://zpoco9zecvth.usemoralis.com:2053/server"
-    >
+    <Web3ReactProvider getLibrary={getLibrary}>
       <Layout>
         <Component {...pageProps} />
-        <ToastContainer
-          position="top-right"
-          autoClose={8000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          draggable={false}
-          pauseOnVisibilityChange
-          closeOnClick
-          pauseOnHover
-        />
+        <ToastContainer/>
       </Layout>
-    </MoralisProvider>
+    </Web3ReactProvider>
   );
 }
 
