@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ethers } from 'ethers';
 import { Web3ReactProvider } from '@web3-react/core';
 
-
 const getLibrary = (provider) => {
   return new ethers.providers.Web3Provider(provider);
 }
